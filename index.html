@@ -1,0 +1,1288 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Zylon Tweak</title>
+
+<style>
+:root{
+  --bg: #000000;
+  --panel: #0B0B10;
+  --accent: #9A3BFF;
+  --accent2: #5C1FA5;
+  --text: #FFFFFF;
+  --muted: #B8B8B8;
+  --radius: 14px;
+  --ease: cubic-bezier(.2,.9,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{
+  background:linear-gradient(180deg,#000,#050505);
+  font-family:Inter,system-ui,Roboto;
+  color:var(--text);
+}
+
+/* ANIMAZIONI */
+@keyframes fadeIn{
+  from{opacity:0;transform:translateY(30px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes pulse{
+  0%,100%{transform:scale(1);box-shadow:0 18px 60px rgba(154,59,255,0.25)}
+  50%{transform:scale(1.05);box-shadow:0 25px 80px rgba(154,59,255,0.5)}
+}
+
+@keyframes slideInUp{
+  from{opacity:0;transform:translateY(40px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@keyframes glow{
+  0%,100%{filter:drop-shadow(0 0 20px rgba(154,59,255,0.4))}
+  50%{filter:drop-shadow(0 0 40px rgba(154,59,255,0.7))}
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0px) rotate(0deg)}
+  33%{transform:translateY(-15px) rotate(2deg)}
+  66%{transform:translateY(-8px) rotate(-2deg)}
+}
+
+/* PAGINE PRINCIPALI */
+.page{
+  display:none;
+  position:fixed;
+  inset:0;
+  width:100%;
+  height:100%;
+}
+.page.active{display:block}
+
+/* ========== PAGINA MOBILE ========== */
+#mobilePage{
+  display:none;
+  flex-direction: column;
+  background:linear-gradient(180deg,#000,#050505);
+  z-index:100;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+#mobilePage.active{display:flex}
+
+/* Mobile Header Fisso */
+.mobile-header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,0.95);
+  backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(154,59,255,0.2);
+  padding: 15px 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.mobile-logo{
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(154,59,255,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  animation: glow 3s ease-in-out infinite;
+}
+
+.mobile-title{
+  font-size: 22px;
+  font-weight: 900;
+  background: linear-gradient(90deg,var(--accent),#590661);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin: 0;
+}
+
+/* Contenuto scrollabile */
+.mobile-content{
+  margin-top: 80px;
+  padding: 20px;
+  padding-bottom: 40px;
+}
+
+.mobile-section{
+  margin-bottom: 40px;
+}
+
+.mobile-section-title{
+  font-size: 32px;
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 25px;
+  background: linear-gradient(90deg,var(--accent),#4e0d53);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: fadeIn 0.8s var(--ease);
+}
+
+/* Home Mobile */
+.mobile-hero{
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 30px 20px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.06);
+  animation: fadeIn 1s var(--ease);
+}
+
+.mobile-hero-logo{
+  width: 120px;
+  height: 120px;
+  border-radius: 24px;
+  margin: 0 auto 20px;
+  box-shadow: 0 15px 50px rgba(154,59,255,0.4);
+  display: block;
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.mobile-hero-title{
+  font-size: 28px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  background: linear-gradient(90deg,var(--accent),#711d92);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: slideInUp 0.8s var(--ease);
+}
+
+.mobile-hero-sub{
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.5;
+  animation: slideInUp 1s var(--ease);
+}
+
+.mobile-features{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.mobile-feature{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 20px 15px;
+  text-align: center;
+  transition: 0.3s var(--ease);
+  animation: fadeIn 1.2s var(--ease) backwards;
+}
+
+.mobile-feature:nth-child(1){animation-delay:0.1s}
+.mobile-feature:nth-child(2){animation-delay:0.2s}
+.mobile-feature:nth-child(3){animation-delay:0.3s}
+.mobile-feature:nth-child(4){animation-delay:0.4s}
+
+.mobile-feature:active{
+  transform: scale(0.97);
+  background: rgba(154,59,255,0.1);
+}
+
+.mobile-feature-icon{
+  font-size: 36px;
+  margin-bottom: 10px;
+  filter: drop-shadow(0 4px 10px rgba(154,59,255,0.3));
+  animation: float 4s ease-in-out infinite;
+}
+
+.mobile-feature h4{
+  font-size: 16px;
+  color: var(--accent);
+  margin-bottom: 5px;
+}
+
+.mobile-feature p{
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Product Cards Mobile */
+.mobile-product-card{
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  animation: fadeIn 0.8s var(--ease);
+}
+
+.mobile-product-card img{
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  background: #000;
+  padding: 15px;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.mobile-product-info h3{
+  font-size: 26px;
+  color: var(--accent);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.mobile-product-desc{
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.mobile-product-footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.mobile-price{
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--accent);
+  text-align: center;
+}
+
+.mobile-buy-btn{
+  padding: 16px 48px;
+  border-radius: 14px;
+  background: linear-gradient(90deg,var(--accent),var(--accent2));
+  border: 0;
+  color: #fff;
+  font-weight: 900;
+  text-decoration: none;
+  display: inline-block;
+  transition: 0.3s var(--ease);
+  font-size: 18px;
+  box-shadow: 0 10px 30px rgba(154,59,255,0.4);
+}
+
+.mobile-buy-btn:active{
+  transform: scale(0.95);
+}
+
+/* Addons Mobile */
+.mobile-addon-title{
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--accent);
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.mobile-addons{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.mobile-addon{
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  padding: 20px 15px;
+  text-align: center;
+}
+
+.mobile-addon-name{
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.mobile-addon-price{
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--accent2);
+}
+
+/* About Mobile */
+.mobile-about-card{
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  padding: 25px;
+  animation: fadeIn 0.8s var(--ease);
+}
+
+.mobile-about-card p{
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+.mobile-about-card strong{
+  color: var(--accent);
+}
+
+/* Contact Cards Mobile */
+.mobile-contacts-subtitle{
+  text-align:center;
+  font-size:15px;
+  color:var(--muted);
+  margin-bottom:25px;
+}
+.mobile-person-section{
+  margin-bottom:35px;
+}
+.mobile-person-header{
+  text-align:center;
+  margin-bottom:20px;
+  padding:20px;
+  background:rgba(255,255,255,0.02);
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,0.05);
+}
+.mobile-person-name{
+  font-size:24px;
+  font-weight:900;
+  background:linear-gradient(90deg,var(--accent),#c850ff);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  margin-bottom:5px;
+}
+.mobile-person-role{
+  font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+.mobile-social-card{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 12px;
+  text-decoration: none;
+  transition: 0.3s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.mobile-social-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(154,59,255,0.1),transparent);
+  opacity:0;
+  transition:0.3s var(--ease);
+}
+.mobile-social-card:active{
+  transform: scale(0.98);
+  border-color: rgba(154,59,255,0.3);
+}
+.mobile-social-card:active::before{
+  opacity:1;
+}
+.mobile-social-icon-wrapper{
+  width:48px;
+  height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  flex-shrink:0;
+  position:relative;
+  z-index:1;
+}
+.mobile-discord-icon{}
+.mobile-tiktok-icon{}
+.mobile-social-icon-wrapper img{
+  width:43px;
+  height:43px;
+  object-fit:contain;
+  display:block;
+}
+.mobile-social-info{
+  flex:1;
+  position:relative;
+  z-index:1;
+}
+.mobile-social-platform{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:3px;
+}
+.mobile-social-handle{
+  font-size:15px;
+  color:var(--text);
+  font-weight:700;
+}
+.mobile-arrow-icon{
+  font-size:18px;
+  color:var(--accent);
+  position:relative;
+  z-index:1;
+}
+
+/* ========== PAGINA DESKTOP (SITO COMPLETO) ========== */
+#desktopPage{
+  display:none;
+  z-index:90;
+}
+#desktopPage.active{display:block}
+
+/* NAVBAR */
+header{
+  position:fixed;inset:0 0 auto 0;height:68px;z-index:60;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:0 20px;
+  background:rgba(255,255,255,0.02);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,0.04);
+}
+.nav-logo{
+  height:48px;width:48px;border-radius:12px;object-fit:cover;
+  box-shadow:0 8px 25px rgba(154,59,255,0.35);
+  border:1px solid rgba(255,255,255,0.12);
+  animation: glow 3s ease-in-out infinite;
+}
+nav{display:flex;gap:12px}
+nav button{
+  background:transparent;border:0;color:var(--muted);
+  padding:8px 14px;border-radius:10px;cursor:pointer;
+  font-size:15px;font-weight:600;transition:0.18s;
+}
+nav button.active{
+  color:var(--text);
+  background:rgba(154,59,255,0.14);
+  border:1px solid rgba(154,59,255,0.20);
+}
+
+/* MAIN */
+.stage{position:relative;height:100vh;width:100%;overflow:hidden}
+.sections{position:absolute;left:0;top:0;width:100%;height:100%;transition:transform 700ms var(--ease)}
+section.screen{width:100vw;height:100vh;padding:100px 28px 40px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+
+/* HOME */
+.home{
+  background:
+    radial-gradient(900px 400px at 10% 15%,rgba(154,59,255,0.12),transparent),
+    radial-gradient(700px 280px at 90% 85%,rgba(92,31,165,0.10),transparent),
+    #000;
+}
+.home-box{
+  width:100%;max-width:1350px;background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.05);
+  border-radius:var(--radius);padding:70px;
+  box-shadow:0 35px 90px rgba(0,0,0,0.7);
+  animation: fadeIn 0.8s var(--ease);
+}
+.hero-logo{
+  width:220px;display:block;margin:0 auto 26px;border-radius:18px;
+  box-shadow:0 18px 60px rgba(154,59,255,0.25);
+  animation: pulse 3s ease-in-out infinite;
+}
+.hero-title{
+  font-size:60px;font-weight:900;text-align:center;margin-bottom:14px;
+  background:linear-gradient(90deg,var(--accent),#711d92);
+  -webkit-background-clip:text;color:transparent;
+  animation: slideInUp 0.8s var(--ease);
+}
+.hero-sub{
+  margin:0 auto;max-width:820px;text-align:center;font-size:19px;
+  color:var(--muted);margin-bottom:30px;
+  animation: slideInUp 1s var(--ease);
+}
+
+.features{
+  margin-top:35px;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;
+}
+.feature{
+  background:var(--panel);border-radius:14px;padding:18px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 12px 30px rgba(0,0,0,0.6);
+  transition: 0.3s var(--ease);
+  animation: fadeIn 1.2s var(--ease) backwards;
+}
+.feature:nth-child(1){animation-delay:0.1s}
+.feature:nth-child(2){animation-delay:0.2s}
+.feature:nth-child(3){animation-delay:0.3s}
+.feature:nth-child(4){animation-delay:0.4s}
+
+.feature:hover{
+  transform: translateY(-5px);
+  box-shadow:0 20px 50px rgba(154,59,255,0.3);
+}
+.feature h4{color:var(--accent);margin-bottom:8px;font-size:18px}
+.feature p{color:var(--muted);font-size:14px}
+
+/* SHOP */
+.shop{
+  background:linear-gradient(180deg,#050005,#0b0011);
+  width:100%;
+  overflow-y:auto;
+  overflow-x:hidden;
+  padding-top:20px;
+  padding-bottom:40px;
+}
+.shop-container{
+  width:100%;max-width:1100px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  margin:0 auto;
+}
+.product{
+  background:rgba(255,255,255,0.04);
+  border-radius:15px;padding:16px;border:1px solid rgba(255,255,255,0.07);
+  box-shadow:0 14px 40px rgba(0,0,0,0.75);
+  display:flex;
+  gap:18px;
+  align-items:flex-start;
+  transition:0.3s var(--ease);
+  animation: fadeIn 0.8s var(--ease);
+}
+.product:hover{
+  transform:scale(1.01);
+  box-shadow:0 18px 55px rgba(154,59,255,0.45);
+}
+.product img{
+  width:140px;
+  height:140px;
+  object-fit:cover;
+  border-radius:11px;
+  background:#000;
+  padding:11px;
+  border:1px solid rgba(255,255,255,0.05);
+  flex-shrink:0;
+}
+.product-info{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+.product h4{
+  margin:0 0 7px 0;
+  font-size:20px;
+  color:var(--accent);
+  line-height:1.2;
+}
+.product .desc{
+  color:var(--muted);
+  font-size:11.5px;
+  line-height:1.45;
+  margin-bottom:11px;
+}
+.product .price{
+  font-size:21px;
+  font-weight:900;
+  color:var(--accent);
+  margin-bottom:11px;
+  line-height:1;
+}
+.product .buy{
+  width:180px;
+  padding:11px 0;
+  border-radius:9px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border:0;
+  color:#fff;
+  font-weight:900;
+  cursor:pointer;
+  font-size:13.5px;
+  box-shadow: 0 6px 22px rgba(154,59,255,0.4);
+  transition: 0.3s var(--ease);
+  text-decoration: none;
+  display:block;
+  text-align:center;
+}
+.product .buy:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 9px 32px rgba(154,59,255,0.6);
+}
+
+/* ADDONS */
+.addons-list{
+  width:100%;max-width:900px;
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:11px;
+  margin:13px auto 0 auto;
+}
+.addon-product{
+  background:rgba(255,255,255,0.03);
+  border-radius:11px;
+  padding:14px 12px;
+  border:1px solid rgba(255,255,255,0.05);
+  text-align:center;
+  box-shadow:0 6px 16px rgba(0,0,0,0.4);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:5.5px;
+  transition: 0.3s var(--ease);
+  animation: fadeIn 1s var(--ease) backwards;
+}
+.addon-product:nth-child(1){animation-delay:0.1s}
+.addon-product:nth-child(2){animation-delay:0.2s}
+
+.addon-product:hover{
+  transform: translateY(-2px);
+  box-shadow:0 9px 27px rgba(154,59,255,0.3);
+}
+.addon-product h4{
+  font-size:15px;color:var(--accent);
+}
+.addon-product p{
+  font-size:10.5px;color:var(--muted);
+}
+.addon-product .price{
+  font-size:19px;color:var(--accent2);font-weight:900;
+}
+
+/* ABOUT */
+.about{
+  background: linear-gradient(180deg,#020006,#060015);
+  display:flex;align-items:center;justify-content:center;
+}
+.about-card{
+  width:100%;max-width:1000px;background:rgba(255,255,255,0.03);
+  border-radius:18px;padding:40px;
+  border:1px solid rgba(255,255,255,0.05);
+  box-shadow:0 30px 90px rgba(0,0,0,0.75);
+  animation: fadeIn 0.8s var(--ease);
+}
+.about-title{font-size:40px;font-weight:900;margin-bottom:15px;
+  background:linear-gradient(90deg,var(--accent),#8b10aa);
+  -webkit-background-clip:text;color:transparent}
+.about-text{color:var(--muted);font-size:16px;line-height:1.8}
+
+/* CONTATTI */
+.contacts{
+  background:linear-gradient(180deg,#040306,#02020a);
+}
+.contacts-title{
+  font-size:52px;text-align:center;margin-bottom:15px;font-weight:900;
+  background:linear-gradient(135deg,var(--accent),#b844ff,var(--accent2));
+  -webkit-background-clip:text;color:transparent;
+  animation: fadeIn 0.8s var(--ease);
+  letter-spacing:-1px;
+}
+.contacts-subtitle{
+  text-align:center;
+  font-size:18px;
+  color:var(--muted);
+  margin-bottom:50px;
+  animation: fadeIn 1s var(--ease);
+}
+.contacts-grid{
+  width:100%;max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(2,1fr);gap:30px;
+  margin-bottom:40px;
+}
+.contact-person{
+  background:rgba(255,255,255,0.02);
+  border-radius:24px;
+  padding:30px;
+  border:1px solid rgba(255,255,255,0.06);
+  animation: fadeIn 1s var(--ease) backwards;
+}
+.contact-person:nth-child(1){animation-delay:0.1s}
+.contact-person:nth-child(2){animation-delay:0.2s}
+
+.person-header{
+  text-align:center;
+  margin-bottom:25px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(154,59,255,0.2);
+}
+.person-name{
+  font-size:28px;
+  font-weight:900;
+  background:linear-gradient(90deg,var(--accent),#c850ff);
+  -webkit-background-clip:text;
+  color:transparent;
+  margin-bottom:5px;
+}
+.person-role{
+  font-size:14px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+.social-links{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+.social-card{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:rgba(255,255,255,0.04);
+  border-radius:16px;
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,0.06);
+  text-decoration:none;
+  transition:0.3s var(--ease);
+  position:relative;
+  overflow:hidden;
+}
+.social-card::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(135deg,rgba(154,59,255,0.1),transparent);
+  opacity:0;
+  transition:0.3s var(--ease);
+}
+.social-card:hover{
+  transform:translateX(8px);
+  border-color:rgba(154,59,255,0.4);
+  box-shadow:0 10px 40px rgba(154,59,255,0.3);
+}
+.social-card:hover::before{
+  opacity:1;
+}
+.social-icon-wrapper{
+  width:50px;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  flex-shrink:0;
+  position:relative;
+  z-index:1;
+  transition:0.3s var(--ease);
+}
+.social-card:hover .social-icon-wrapper{
+  transform:scale(1.15) rotate(5deg);
+}
+.discord-icon{}
+.tiktok-icon{}
+.social-icon-wrapper img{
+  width:45px;
+  height:45px;
+  object-fit:contain;
+  display:block;
+}
+.social-info{
+  flex:1;
+  position:relative;
+  z-index:1;
+}
+.social-platform{
+  font-size:12px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin-bottom:4px;
+}
+.social-handle{
+  font-size:16px;
+  color:var(--text);
+  font-weight:700;
+}
+.arrow-icon{
+  font-size:20px;
+  color:var(--accent);
+  transition:0.3s var(--ease);
+  position:relative;
+  z-index:1;
+}
+.social-card:hover .arrow-icon{
+  transform:translateX(5px);
+}
+
+/* footer */
+footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-index:50}
+
+/* RESPONSIVE */
+@media (max-width:768px){
+  .hero-title{font-size:36px}
+  .hero-sub{font-size:16px}
+  .home-box{padding:40px 25px}
+  .about-title{font-size:32px}
+  .contacts-title{font-size:36px}
+  .contacts-subtitle{font-size:15px;margin-bottom:30px}
+  nav{flex-wrap:wrap;gap:8px}
+  nav button{font-size:13px;padding:6px 10px}
+  .product{
+    flex-direction:column;
+    padding:30px 20px;
+    gap:25px;
+  }
+  .product img{
+    width:100%;
+    height:auto;
+    aspect-ratio:1;
+  }
+  .product .buy{
+    width:100%;
+  }
+  .product h4{font-size:26px}
+  .product .price{font-size:28px;margin-bottom:20px}
+  .addons-list{grid-template-columns:1fr}
+  .contacts-grid{grid-template-columns:1fr}
+}
+
+</style>
+</head>
+<body>
+
+<!-- ========== PAGINA MOBILE ========== -->
+<div id="mobilePage" class="page">
+  <!-- Header Mobile -->
+  <div class="mobile-header">
+    <img src="zylon.jpeg" class="mobile-logo" alt="Zylon Logo">
+    <h1 class="mobile-title">Zylon Tweak</h1>
+  </div>
+
+  <!-- Contenuto scrollabile -->
+  <div class="mobile-content">
+    
+    <!-- Home Section -->
+    <div class="mobile-section mobile-home">
+      <div class="mobile-hero">
+        <img src="zylon.jpeg" alt="Zylon" class="mobile-hero-logo">
+        <h2 class="mobile-hero-title">La tua ottimizzazione definitiva.</h2>
+        <p class="mobile-hero-sub">Migliora stabilità, reattività e prestazioni con il tweak definitivo.</p>
+      </div>
+      
+      <div class="mobile-features">
+        <div class="mobile-feature">
+          <div class="mobile-feature-icon">⚡</div>
+          <h4>Boost immediato</h4>
+          <p>Aumento FPS e stabilità</p>
+        </div>
+        <div class="mobile-feature">
+          <div class="mobile-feature-icon">🔥</div>
+          <h4>Reattività</h4>
+          <p>Input più veloci</p>
+        </div>
+        <div class="mobile-feature">
+          <div class="mobile-feature-icon">🔒</div>
+          <h4>Sicuro</h4>
+          <p>Modifiche testate</p>
+        </div>
+        <div class="mobile-feature">
+          <div class="mobile-feature-icon">🛠</div>
+          <h4>Supporto</h4>
+          <p>Assistenza dedicata</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Prezzi Section -->
+    <div class="mobile-section mobile-shop">
+      <h2 class="mobile-section-title">I Nostri Tweak</h2>
+      
+      <!-- PRIMO PRODOTTO - 10€ -->
+      <div class="mobile-product-card">
+        <img src="zylon.jpeg" alt="Tweak Console">
+        <div class="mobile-product-info">
+          <h3>Tweak Console</h3>
+          <p class="mobile-product-desc">Ottimizzazione completa per console: configurazione avanzata rete (NAT, DNS, MTU), riduzione ping e packet loss, pulizia cache e storage, setup controller per reattività massima e zero input lag, migliore reattività, impostazioni consigliate per giochi competitivi (FPS, Battle Royale, ecc.), configurazione QoS e canali Wi-Fi/Ethernet. Compatibile con: Ps4, Ps5, Xbox One, Xbox Series X/S.</p>
+          <div class="mobile-product-footer">
+            <span class="mobile-price">€10</span>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECONDO PRODOTTO - 20€ -->
+      <div class="mobile-product-card">
+        <img src="zylon.jpeg" alt="Tweak Avanzato">
+        <div class="mobile-product-info">
+          <h3>Tweak Avanzato</h3>
+          <p class="mobile-product-desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Consulenza di 1g.</p>
+          <div class="mobile-product-footer">
+            <span class="mobile-price">€20</span>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERZO PRODOTTO - 30€ -->
+      <div class="mobile-product-card">
+        <img src="zylon.jpeg" alt="Tweak Extreme">
+        <div class="mobile-product-info">
+          <h3>Tweak Extreme</h3>
+          <p class="mobile-product-desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Bios Optimization + Consulenza illimitata.</p>
+          <div class="mobile-product-footer">
+            <span class="mobile-price">€30</span>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Addons Mobile -->
+      <h3 class="mobile-addon-title">Addon Disponibili</h3>
+      <div class="mobile-addons">
+        <!-- PRIMO ADDON -->
+        <div class="mobile-addon">
+          <span class="mobile-addon-name">Salta la coda</span>
+          <span class="mobile-addon-price">+5€</span>
+        </div>
+        <!-- SECONDO ADDON -->
+        <div class="mobile-addon">
+          <span class="mobile-addon-name">Reset completo di Windows</span>
+          <span class="mobile-addon-price">+5€</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chi Siamo Section -->
+    <div class="mobile-section mobile-about">
+      <h2 class="mobile-section-title">Chi Siamo</h2>
+      <div class="mobile-about-card">
+        <p style="font-size:14px;color:var(--muted);margin-bottom:15px;text-align:left;line-height:1.6;">Siamo degli ottimizzatori esperti con anni di esperienza nel settore delle prestazioni PC. La nostra missione è trasformare ogni sistema in una macchina ad alte prestazioni, sbloccando il vero potenziale del tuo hardware.</p>
+        
+        <h3 style="font-size:18px;color:var(--accent);margin-top:15px;margin-bottom:10px;font-weight:900;">Zylon Tweak — La Soluzione Completa ⚡</h3>
+        
+        <p>Sblocca le massime prestazioni con Zylon Tweak. Non è solo un tweak pack, è un sistema completo che ottimizza GPU, CPU, rete, RAM, latenza e molto altro.</p>
+        
+        <p><strong style="color:var(--accent);">Cosa Offriamo:</strong><br>
+        • Ottimizzazione GPU e CPU<br>
+        • Tweaking di rete e latenza<br>
+        • Pulizia RAM e sistema<br>
+        • Ottimizzazione input<br>
+        • Configurazioni personalizzate</p>
+        
+        <p><strong style="color:var(--accent);">Perché Zylon Tweak 💜</strong><br>
+        Le prestazioni sono reattività, velocità e fluidità. Il tuo hardware può fare di più — Zylon Tweak lo sblocca. 🔥</p>
+      </div>
+    </div>
+
+    <!-- Contatti Section -->
+    <div class="mobile-section mobile-contacts">
+      <h2 class="mobile-section-title">Contattaci</h2>
+      <p class="mobile-contacts-subtitle">Scegli il tuo canale preferito per metterti in contatto</p>
+      
+      <!-- Zylon Tweak -->
+      <div class="mobile-person-section">
+        <div class="mobile-person-header">
+          <h3 class="mobile-person-name">Zylon Tweak</h3>
+          <p class="mobile-person-role">Ottimizzazione PC</p>
+        </div>
+        
+        <a href=" https://discord.gg/xr2bbqR3Ab" target="_blank" class="mobile-social-card">
+          <div class="mobile-social-icon-wrapper mobile-discord-icon">
+            <img src="discord.png" alt="Discord">
+          </div>
+          <div class="mobile-social-info">
+            <div class="mobile-social-platform">Discord</div>
+            <div class="mobile-social-handle">Zylon Tweak Server</div>
+          </div>
+          <div class="mobile-arrow-icon">→</div>
+        </a>
+        
+        <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-social-card">
+          <div class="mobile-social-icon-wrapper mobile-tiktok-icon">
+            <img src="tiktok.png" alt="TikTok">
+          </div>
+          <div class="mobile-social-info">
+            <div class="mobile-social-platform">TikTok</div>
+            <div class="mobile-social-handle">@zylontweaks</div>
+          </div>
+          <div class="mobile-arrow-icon">→</div>
+        </a>
+      </div>
+
+      <!-- Adix -->
+      <div class="mobile-person-section">
+        <div class="mobile-person-header">
+          <h3 class="mobile-person-name">Adix</h3>
+          <p class="mobile-person-role">Website Creator</p>
+        </div>
+        
+        <a href="https://discord.gg/adixfnbr" target="_blank" class="mobile-social-card">
+          <div class="mobile-social-icon-wrapper mobile-discord-icon">
+            <img src="discord.png" alt="Discord">
+          </div>
+          <div class="mobile-social-info">
+            <div class="mobile-social-platform">Discord</div>
+            <div class="mobile-social-handle">Adix Server</div>
+          </div>
+          <div class="mobile-arrow-icon">→</div>
+        </a>
+        
+        <a href="https://www.tiktok.com/@adixfnbr" target="_blank" class="mobile-social-card">
+          <div class="mobile-social-icon-wrapper mobile-tiktok-icon">
+            <img src="tiktok.png" alt="TikTok">
+          </div>
+          <div class="mobile-social-info">
+            <div class="mobile-social-platform">TikTok</div>
+            <div class="mobile-social-handle">@adixfnbr</div>
+          </div>
+          <div class="mobile-arrow-icon">→</div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ========== PAGINA DESKTOP (SITO COMPLETO) ========== -->
+<div id="desktopPage" class="page">
+  <header>
+    <img src="zylon.jpeg" class="nav-logo" alt="Zylon Logo">
+    <nav>
+      <button class="nav-btn active" data-index="0">Home</button>
+      <button class="nav-btn" data-index="1">Prezzi</button>
+      <button class="nav-btn" data-index="2">Chi siamo</button>
+      <button class="nav-btn" data-index="3">Contatti</button>
+    </nav>
+  </header>
+  <main class="stage">
+    <div class="sections" id="sections">
+      <!-- HOME -->
+      <section class="screen home">
+        <div class="home-box">
+          <img src="zylon.jpeg" alt="Zylon" class="hero-logo">
+          <h1 class="hero-title">La tua ottimizzazione definitiva.</h1>
+          <p class="hero-sub">Migliora stabilità, reattività e prestazioni con il tweak definitivo.</p>
+          <div class="features">
+            <div class="feature"><h4>⚡ Boost immediato</h4><p>Aumento FPS e stabilità.</p></div>
+            <div class="feature"><h4>🔥 Reattività</h4><p>Input più veloci.</p></div>
+            <div class="feature"><h4>🔒 Sicuro</h4><p>Modifiche testate.</p></div>
+            <div class="feature"><h4>🛠 Supporto</h4><p>Assistenza dedicata.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SHOP -->
+      <section class="screen shop">
+        <div class="shop-container">
+          <!-- PRIMO PRODOTTO - 10€ -->
+          <div class="product">
+            <img src="zylon.jpeg" alt="Tweak Console">
+            <div class="product-info">
+              <h4>Tweak Console</h4>
+              <p class="desc">Ottimizzazione completa per console: configurazione avanzata rete (NAT, DNS, MTU), riduzione ping e packet loss, pulizia cache e storage, setup controller per reattività massima e zero input lag, migliore reattività, impostazioni consigliate per giochi competitivi (FPS, Battle Royale, ecc.), configurazione QoS e canali Wi-Fi/Ethernet. Compatibile con: Ps4, Ps5, Xbox One, Xbox Series X/S.</p>
+              <div class="price">€10</div>
+              <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
+            </div>
+          </div>
+
+          <!-- SECONDO PRODOTTO - 20€ -->
+          <div class="product">
+            <img src="zylon.jpeg" alt="Tweak Avanzato">
+            <div class="product-info">
+              <h4>Tweak Avanzato</h4>
+              <p class="desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Consulenza di 1g.</p>
+              <div class="price">€20</div>
+              <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
+            </div>
+          </div>
+
+          <!-- TERZO PRODOTTO - 30€ -->
+          <div class="product">
+            <img src="zylon.jpeg" alt="Tweak Extreme">
+            <div class="product-info">
+              <h4>Tweak Extreme</h4>
+              <p class="desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Bios Optimization + Consulenza illimitata.</p>
+              <div class="price">€30</div>
+              <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
+            </div>
+          </div>
+
+          <!-- ADDONS -->
+          <div class="addons-list">
+            <!-- PRIMO ADDON -->
+            <div class="addon-product">
+              <h4>Salta la coda</h4>
+              <p>Priorità immediata nella gestione del tuo ordine</p>
+              <div class="price">+5€</div>
+            </div>
+            <!-- SECONDO ADDON -->
+            <div class="addon-product">
+              <h4>Reset completo di Windows</h4>
+              <p>Installazione pulita e ottimizzata del sistema operativo</p>
+              <div class="price">+5€</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="screen about">
+        <div class="about-card">
+          <h2 class="about-title">Chi Siamo</h2>
+          <p style="font-size:16px;color:var(--muted);margin-bottom:20px;text-align:left;line-height:1.6;">Siamo degli ottimizzatori esperti con anni di esperienza nel settore delle prestazioni PC. La nostra missione è trasformare ogni sistema in una macchina ad alte prestazioni, sbloccando il vero potenziale nascosto del tuo hardware attraverso ottimizzazioni avanzate e configurazioni professionali.</p>
+          
+          <p class="about-text" style="margin-top:15px;">
+          <strong style="color:var(--accent);font-size:20px;">Zylon Tweak — La Soluzione Completa ⚡</strong><br>
+
+Sblocca le massime prestazioni con Zylon Tweak, la suite di ottimizzazione completa per chi vuole il massimo dal proprio PC. Non è solo un tweak pack, è un sistema completo che ottimizza GPU, CPU, rete, RAM, latenza e molto altro.<br><br>
+
+<strong style="color:var(--accent);">Cosa Offriamo:</strong><br>
+• Ottimizzazione GPU e CPU<br>
+• Tweaking di rete e riduzione latenza<br>
+• Pulizia RAM e debloat sistema<br>
+• Ottimizzazione tastiera e mouse<br>
+• Configurazioni personalizzate<br><br>
+
+<strong style="color:var(--accent);">Perché Scegliere Zylon Tweak 💜</strong><br>
+Le prestazioni non sono solo FPS più alti, ma reattività migliore, ritardi inferiori e un PC più veloce in tutto. Il tuo hardware è capace di molto di più — Zylon Tweak lo sblocca. 🔥
+          </p>
+        </div>
+      </section>
+
+      <!-- CONTATTI -->
+      <section class="screen contacts">
+        <div style="width:100%;max-width:1200px;margin:0 auto">
+          <h1 class="contacts-title">Contattaci</h1>
+          <p class="contacts-subtitle">Scegli il tuo canale preferito per metterti in contatto con noi</p>
+          
+          <div class="contacts-grid">
+            <!-- Zylon Tweak -->
+            <div class="contact-person">
+              <div class="person-header">
+                <h2 class="person-name">Zylon Tweak</h2>
+                <p class="person-role">Ottimizzazione PC</p>
+              </div>
+              <div class="social-links">
+                <a href=" https://discord.gg/xr2bbqR3Ab" target="_blank" class="social-card">
+                  <div class="social-icon-wrapper discord-icon">
+                    <img src="discord.png" alt="Discord">
+                  </div>
+                  <div class="social-info">
+                    <div class="social-platform">Discord</div>
+                    <div class="social-handle">Zylon Tweak Server</div>
+                  </div>
+                  <div class="arrow-icon">→</div>
+                </a>
+                <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="social-card">
+                  <div class="social-icon-wrapper tiktok-icon">
+                    <img src="tiktok.png" alt="TikTok">
+                  </div>
+                  <div class="social-info">
+                    <div class="social-platform">TikTok</div>
+                    <div class="social-handle">@zylontweaks</div>
+                  </div>
+                  <div class="arrow-icon">→</div>
+                </a>
+              </div>
+            </div>
+
+            <!-- Adix -->
+            <div class="contact-person">
+              <div class="person-header">
+                <h2 class="person-name">Adix</h2>
+                <p class="person-role">Website Creator</p>
+              </div>
+              <div class="social-links">
+                <a href="https://discord.gg/adixfnbr" target="_blank" class="social-card">
+                  <div class="social-icon-wrapper discord-icon">
+                    <img src="discord.png" alt="Discord">
+                  </div>
+                  <div class="social-info">
+                    <div class="social-platform">Discord</div>
+                    <div class="social-handle">Adix Server</div>
+                  </div>
+                  <div class="arrow-icon">→</div>
+                </a>
+                <a href="https://www.tiktok.com/@adixfnbr" target="_blank" class="social-card">
+                  <div class="social-icon-wrapper tiktok-icon">
+                    <img src="tiktok.png" alt="TikTok">
+                  </div>
+                  <div class="social-info">
+                    <div class="social-platform">TikTok</div>
+                    <div class="social-handle">@adixfnbr</div>
+                  </div>
+                  <div class="arrow-icon">→</div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  <footer>© Zylon Tweak</footer>
+</div>
+
+<script>
+// Rilevamento automatico dispositivo
+function isMobileDevice() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) 
+         || window.innerWidth <= 768;
+}
+
+// Inizializzazione automatica
+window.addEventListener('DOMContentLoaded', function() {
+  if (isMobileDevice()) {
+    document.getElementById('mobilePage').classList.add('active');
+  } else {
+    document.getElementById('desktopPage').classList.add('active');
+  }
+});
+
+// Navigazione sito desktop
+const sections = document.getElementById("sections");
+const navBtns = document.querySelectorAll(".nav-btn");
+let current = 0;
+
+function goTo(index) {
+  current = index;
+  sections.style.transform = `translateY(-${index*100}vh)`;
+  navBtns.forEach(b => b.classList.remove("active"));
+  navBtns[index].classList.add("active");
+}
+
+navBtns.forEach(btn => {
+  btn.onclick = () => goTo(parseInt(btn.dataset.index));
+});
+
+// Blocco scroll solo nella pagina desktop, ma NON nella sezione shop
+window.addEventListener("wheel", e => {
+  if(document.getElementById('desktopPage').classList.contains('active')) {
+    // Permetti scroll se siamo nella sezione shop
+    const shopSection = document.querySelector('.shop');
+    if (shopSection && e.target.closest('.shop')) {
+      return; // Permetti lo scroll naturale
+    }
+    e.preventDefault();
+  }
+}, {passive: false});
+
+window.addEventListener("touchmove", e => {
+  if(document.getElementById('desktopPage').classList.contains('active')) {
+    // Permetti scroll se siamo nella sezione shop
+    const shopSection = document.querySelector('.shop');
+    if (shopSection && e.target.closest('.shop')) {
+      return; // Permetti lo scroll naturale
+    }
+    e.preventDefault();
+  }
+}, {passive: false});
+</script>
+</body>
+</html>
