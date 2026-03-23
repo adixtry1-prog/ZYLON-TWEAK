@@ -487,10 +487,7 @@ section.screen{width:100vw;height:100vh;padding:100px 28px 40px;display:flex;ali
 
 /* HOME */
 .home{
-  background:
-    radial-gradient(900px 400px at 10% 15%,rgba(154,59,255,0.12),transparent),
-    radial-gradient(700px 280px at 90% 85%,rgba(92,31,165,0.10),transparent),
-    #000;
+  background:linear-gradient(135deg,#0a0015 0%,#1a0033 50%,#0a0015 100%);
 }
 .home-box{
   width:100%;max-width:1350px;background:rgba(255,255,255,0.03);
@@ -541,109 +538,144 @@ section.screen{width:100vw;height:100vh;padding:100px 28px 40px;display:flex;ali
 
 /* SHOP */
 .shop{
-  background:linear-gradient(180deg,#050005,#0b0011);
+  background:linear-gradient(135deg,#0a0015 0%,#1a0033 50%,#0a0015 100%);
   width:100%;
+  height:100vh;
   overflow-y:auto;
   overflow-x:hidden;
-  padding-top:20px;
-  padding-bottom:40px;
-}
-.shop-container{
-  width:100%;max-width:1100px;
-  padding:20px;
+  padding:50px 20px;
   display:flex;
   flex-direction:column;
-  gap:14px;
+  align-items:center;
+  justify-content:center;
+}
+.shop-container{
+  width:100%;max-width:1250px;
+  padding:0;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:32px;
   margin:0 auto;
 }
 .product{
-  background:rgba(255,255,255,0.04);
-  border-radius:15px;padding:16px;border:1px solid rgba(255,255,255,0.07);
-  box-shadow:0 14px 40px rgba(0,0,0,0.75);
+  background:rgba(20,5,40,0.6);
+  border-radius:20px;
+  padding:40px 26px;
+  border:2px solid rgba(154,59,255,0.35);
+  box-shadow:0 15px 50px rgba(154,59,255,0.15);
   display:flex;
-  gap:18px;
-  align-items:flex-start;
-  transition:0.3s var(--ease);
+  flex-direction:column;
+  gap:16px;
+  align-items:center;
+  text-align:center;
+  transition:0.35s var(--ease);
   animation: fadeIn 0.8s var(--ease);
+  position:relative;
+  min-height:100%;
+  justify-content:flex-start;
 }
 .product:hover{
-  transform:scale(1.01);
-  box-shadow:0 18px 55px rgba(154,59,255,0.45);
+  transform:translateY(-6px);
+  border-color:rgba(154,59,255,0.6);
+  box-shadow:0 25px 70px rgba(154,59,255,0.25);
 }
 .product img{
-  width:140px;
-  height:140px;
-  object-fit:cover;
-  border-radius:11px;
-  background:#000;
-  padding:11px;
-  border:1px solid rgba(255,255,255,0.05);
-  flex-shrink:0;
+  display:none;
 }
 .product-info{
   flex:1;
   display:flex;
   flex-direction:column;
+  gap:8px;
+  align-items:center;
+  width:100%;
+}
+.product-badge{
+  display:none;
+}
+.product-badge.supreme{
+  background:linear-gradient(135deg,#FFD700,#FFA500);
+  color:#000;
+  box-shadow:0 4px 15px rgba(255,215,0,0.5);
 }
 .product h4{
-  margin:0 0 7px 0;
-  font-size:20px;
+  margin:0 0 8px 0;
+  font-size:26px;
   color:var(--accent);
-  line-height:1.2;
+  line-height:1.3;
+  text-align:center;
+  font-weight:900;
+  letter-spacing:-0.5px;
+}
+.product-subtitle{
+  margin:0 0 14px 0;
+  font-size:12px;
+  color:#a898b0;
+  text-align:center;
+  font-weight:500;
+  line-height:1.4;
+  letter-spacing:0.3px;
 }
 .product .desc{
   color:var(--muted);
-  font-size:11.5px;
-  line-height:1.45;
-  margin-bottom:11px;
+  font-size:12px;
+  line-height:1.4;
+  margin:0;
+  text-align:center;
+  margin-bottom:12px;
 }
 .product .price{
-  font-size:21px;
+  font-size:42px;
   font-weight:900;
   color:var(--accent);
-  margin-bottom:11px;
+  margin:10px 0 4px 0;
   line-height:1;
+  text-shadow:0 0 20px rgba(154,59,255,0.3);
 }
 .product .buy{
-  width:180px;
-  padding:11px 0;
-  border-radius:9px;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  width:100%;
+  padding:14px 0;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
   border:0;
   color:#fff;
   font-weight:900;
   cursor:pointer;
-  font-size:13.5px;
-  box-shadow: 0 6px 22px rgba(154,59,255,0.4);
-  transition: 0.3s var(--ease);
-  text-decoration: none;
+  font-size:14px;
+  box-shadow:0 8px 25px rgba(154,59,255,0.45);
+  transition:0.35s var(--ease);
+  text-decoration:none;
   display:block;
   text-align:center;
+  margin:6px 0 0 0;
+  letter-spacing:0.5px;
 }
 .product .buy:hover{
-  transform: translateY(-2px);
-  box-shadow: 0 9px 32px rgba(154,59,255,0.6);
+  transform:translateY(-3px);
+  box-shadow:0 12px 40px rgba(154,59,255,0.6);
 }
 
 /* ADDONS */
 .addons-list{
-  width:100%;max-width:900px;
+  width:100%;max-width:1500px;
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:11px;
-  margin:13px auto 0 auto;
+  grid-template-columns:1fr;
+  gap:0;
+  margin:0 auto;
+  padding:0;
+  grid-column:1/-1;
 }
 .addon-product{
-  background:rgba(255,255,255,0.03);
-  border-radius:11px;
-  padding:14px 12px;
-  border:1px solid rgba(255,255,255,0.05);
+  background:rgba(0,0,0,0.4);
+  border-radius:14px;
+  padding:18px 24px;
+  border:1px solid rgba(154,59,255,0.2);
   text-align:center;
-  box-shadow:0 6px 16px rgba(0,0,0,0.4);
+  box-shadow:0 8px 24px rgba(0,0,0,0.5);
   display:flex;
   flex-direction:column;
   justify-content:center;
-  gap:5.5px;
+  gap:6px;
   transition: 0.3s var(--ease);
   animation: fadeIn 1s var(--ease) backwards;
 }
@@ -655,18 +687,72 @@ section.screen{width:100vw;height:100vh;padding:100px 28px 40px;display:flex;ali
   box-shadow:0 9px 27px rgba(154,59,255,0.3);
 }
 .addon-product h4{
-  font-size:15px;color:var(--accent);
+  font-size:15px;color:var(--accent);font-weight:900;margin:0;
 }
 .addon-product p{
-  font-size:10.5px;color:var(--muted);
+  font-size:10px;color:var(--muted);margin:0;
 }
 .addon-product .price{
-  font-size:19px;color:var(--accent2);font-weight:900;
+  font-size:18px;color:var(--accent2);font-weight:900;margin:0;
+}
+
+.product ul{
+  width:100% !important;
+  text-align:left !important;
+  list-style:none !important;
+  padding:0 !important;
+  margin:12px 0 0 0 !important;
+  font-size:10px !important;
+  color:var(--muted) !important;
+  gap:5px !important;
+  display:flex !important;
+  flex-direction:column !important;
+}
+
+.benefits{
+  width:100%;
+  text-align:center;
+  list-style:none;
+  padding:0;
+  margin:0 auto;
+  font-size:11px;
+  color:#b5a5c5;
+  gap:8px;
+  display:flex;
+  flex-direction:column;
+  flex:1;
+  align-items:center;
+  justify-content:center;
+}
+
+.benefits li{
+  margin:0 auto;
+  padding:0;
+  line-height:1.6;
+  font-weight:400;
+}
+
+.product-divider{
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,rgba(154,59,255,0),rgba(154,59,255,0.4),rgba(154,59,255,0));
+  margin:16px 0 12px 0;
+}
+
+.addon-product-special{
+  background:linear-gradient(135deg,rgba(154,59,255,0.12),rgba(154,59,255,0.06),rgba(154,59,255,0.12));
+  border:2px solid rgba(154,59,255,0.4);
+  border-radius:18px;
+  padding:24px 32px;
+  gap:0;
+  min-height:auto;
+  justify-content:center;
+  box-shadow:0 10px 40px rgba(154,59,255,0.1);
 }
 
 /* ABOUT */
 .about{
-  background: linear-gradient(180deg,#020006,#060015);
+  background:linear-gradient(135deg,#0a0015 0%,#1a0033 50%,#0a0015 100%);
   display:flex;align-items:center;justify-content:center;
 }
 .about-card{
@@ -683,7 +769,7 @@ section.screen{width:100vw;height:100vh;padding:100px 28px 40px;display:flex;ali
 
 /* CONTATTI */
 .contacts{
-  background:linear-gradient(180deg,#040306,#02020a);
+  background:linear-gradient(135deg,#0a0015 0%,#1a0033 50%,#0a0015 100%);
 }
 .contacts-title{
   font-size:52px;text-align:center;margin-bottom:15px;font-weight:900;
@@ -822,6 +908,21 @@ section.screen{width:100vw;height:100vh;padding:100px 28px 40px;display:flex;ali
 /* footer */
 footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-index:50}
 
+/* Copyright Footer */
+.copyright-footer{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  text-align:center;
+  padding:15px;
+  color:var(--accent);
+  font-size:12px;
+  z-index:40;
+  font-weight:600;
+  letter-spacing:0.5px;
+}
+
 /* RESPONSIVE */
 @media (max-width:768px){
   .hero-title{font-size:36px}
@@ -904,10 +1005,10 @@ footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-
       
       <!-- PRIMO PRODOTTO - 10€ -->
       <div class="mobile-product-card">
-        <img src="zylon.jpeg" alt="Tweak Console">
+        <img src="zylon.jpeg" alt="Console & Router">
         <div class="mobile-product-info">
-          <h3>Tweak Console</h3>
-          <p class="mobile-product-desc">Ottimizzazione completa per console: configurazione avanzata rete (NAT, DNS, MTU), riduzione ping e packet loss, pulizia cache e storage, setup controller per reattività massima e zero input lag, migliore reattività, impostazioni consigliate per giochi competitivi (FPS, Battle Royale, ecc.), configurazione QoS e canali Wi-Fi/Ethernet. Compatibile con: Ps4, Ps5, Xbox One, Xbox Series X/S.</p>
+          <h3>🎮 CONSOLE & ROUTER</h3>
+          <p class="mobile-product-desc"><strong>PS5 | Xbox Series X/S — Ping Basso</strong><br><br>● Network: Ottimizzazione NAT, DNS e MTU<br>● Controller: Setup reattività e input lag<br>● Router: Configurazione QoS e canali Wi-Fi<br>● System: Pulizia cache e setup FPS<br>● Guide: Guida post-servizio inclusa</p>
           <div class="mobile-product-footer">
             <span class="mobile-price">€10</span>
             <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
@@ -915,25 +1016,12 @@ footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-
         </div>
       </div>
 
-      <!-- SECONDO PRODOTTO - 20€ -->
-      <div class="mobile-product-card">
-        <img src="zylon.jpeg" alt="Tweak Avanzato">
-        <div class="mobile-product-info">
-          <h3>Tweak Avanzato</h3>
-          <p class="mobile-product-desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Consulenza di 1g.</p>
-          <div class="mobile-product-footer">
-            <span class="mobile-price">€20</span>
-            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- TERZO PRODOTTO - 30€ -->
+      <!-- SECONDO PRODOTTO - 30€ -->
       <div class="mobile-product-card">
         <img src="zylon.jpeg" alt="Tweak Extreme">
         <div class="mobile-product-info">
-          <h3>Tweak Extreme</h3>
-          <p class="mobile-product-desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Bios Optimization + Consulenza illimitata.</p>
+          <h3>🔧 TWEAK EXTREME — 30€</h3>
+          <p class="mobile-product-desc"><strong>Ideale per PC Fascia Bassa/Media</strong><br><br>● Windows Tuning: Ottimizzazione completa gaming<br>● FPS Boost: Script .bat e .reg per CPU e GPU<br>● Input Lag: Riduzione drastica latenza di sistema<br>● Hardware: Setup Mouse, Tastiera e Gamepad<br>● Network: Miglioramento stabilità di rete<br>● Supporto: 1 Mese di assistenza inclusa</p>
           <div class="mobile-product-footer">
             <span class="mobile-price">€30</span>
             <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
@@ -941,18 +1029,26 @@ footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-
         </div>
       </div>
 
-      <!-- Addons Mobile -->
-      <h3 class="mobile-addon-title">Addon Disponibili</h3>
-      <div class="mobile-addons">
-        <!-- PRIMO ADDON -->
-        <div class="mobile-addon">
-          <span class="mobile-addon-name">Salta la coda</span>
-          <span class="mobile-addon-price">+5€</span>
+      <!-- TERZO PRODOTTO - 40€ -->
+      <div class="mobile-product-card">
+        <img src="zylon.jpeg" alt="Ztweak">
+        <div class="mobile-product-info">
+          <h3>🔥 ZTWEAK — 40€</h3>
+          <p class="mobile-product-desc"><strong>Ideale per PC Fascia Media/Alta</strong><br><br>● Full Access: Include tutto il pacchetto Extreme<br>● Zylon Zip: +30 file .reg e .bat esclusivi<br>● Advanced: Supporto Overclock e stringhe CMD<br>● Zylon Setup: Power Plan + Stringhe Fortnite<br>● Supporto: Consulenza e assistenza illimitata</p>
+          <div class="mobile-product-footer">
+            <span class="mobile-price">€40</span>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="mobile-buy-btn">Acquista Ora</a>
+          </div>
         </div>
-        <!-- SECONDO ADDON -->
-        <div class="mobile-addon">
-          <span class="mobile-addon-name">Reset completo di Windows</span>
-          <span class="mobile-addon-price">+5€</span>
+      </div>
+
+      <!-- Addons Mobile -->
+      <h3 class="mobile-addon-title">Pack Extra</h3>
+      <div class="mobile-addons">
+        <!-- PACK EXTRA -->
+        <div class="mobile-addon" style="grid-column: 1 / -1;">
+          <span class="mobile-addon-name">🚀 PACK EXTRA (Solo ZTweak) — +10€</span>
+          <span class="mobile-addon-price" style="display: block; margin-top: 10px; font-size: 13px; color: var(--muted); font-weight: 400;">Clean Start: Reset e installazione Windows & Driver | Deep Setup: Ottimizzazione BIOS e Debloat | Aim Tweak: Configurazione puntamento mirata | Bonus: Sconto sul prossimo tweak</span>
         </div>
       </div>
     </div>
@@ -1021,7 +1117,7 @@ footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-
           <p class="mobile-person-role">Website Creator</p>
         </div>
         
-        <a href="https://discord.gg/adixfnbr" target="_blank" class="mobile-social-card">
+        <a href="https://discord.gg/ptmRYYSK3t" target="_blank" class="mobile-social-card">
           <div class="mobile-social-icon-wrapper mobile-discord-icon">
             <img src="discord.png" alt="Discord">
           </div>
@@ -1079,52 +1175,49 @@ footer{position:fixed;left:15px;bottom:15px;color:var(--muted);font-size:13px;z-
       <!-- SHOP -->
       <section class="screen shop">
         <div class="shop-container">
-          <!-- PRIMO PRODOTTO - 10€ -->
+          <!-- PIANO 1: CONSOLE & ROUTER - €10 -->
           <div class="product">
-            <img src="zylon.jpeg" alt="Tweak Console">
-            <div class="product-info">
-              <h4>Tweak Console</h4>
-              <p class="desc">Ottimizzazione completa per console: configurazione avanzata rete (NAT, DNS, MTU), riduzione ping e packet loss, pulizia cache e storage, setup controller per reattività massima e zero input lag, migliore reattività, impostazioni consigliate per giochi competitivi (FPS, Battle Royale, ecc.), configurazione QoS e canali Wi-Fi/Ethernet. Compatibile con: Ps4, Ps5, Xbox One, Xbox Series X/S.</p>
-              <div class="price">€10</div>
-              <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
-            </div>
+            <h4>CONSOLE & ROUTER</h4>
+            <ul class="benefits">
+              <li>Ottimizzazione completa della rete con interventi su NAT, DNS e MTU per garantire una connessione più stabile, veloce e reattiva durante le sessioni di gioco online. Configurazione avanzata del controller per migliorare la precisione, ridurre al minimo l'input lag e rendere i movimenti più fluidi e immediati. Setup dettagliato del router con QoS personalizzato per dare priorità al traffico gaming, scelta dei migliori canali Wi-Fi per evitare interferenze e migliorare la qualità del segnale. Inclusa anche la pulizia approfondita della cache di sistema e ottimizzazione degli FPS per ottenere prestazioni più elevate e costanti. Dopo il servizio viene fornita una guida completa passo passo per mantenere e replicare le ottimizzazioni nel tempo.</li>
+            </ul>
+            <div class="product-divider"></div>
+            <div class="price">€10</div>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
           </div>
 
-          <!-- SECONDO PRODOTTO - 20€ -->
+          <!-- PIANO 2: TWEAK EXTREME - €30 -->
           <div class="product">
-            <img src="zylon.jpeg" alt="Tweak Avanzato">
-            <div class="product-info">
-              <h4>Tweak Avanzato</h4>
-              <p class="desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Consulenza di 1g.</p>
-              <div class="price">€20</div>
-              <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
-            </div>
+            <h4>TWEAK EXTREME</h4>
+            <ul class="benefits">
+              <li>Ottimizzazione completa del sistema Windows dedicata al gaming competitivo, con modifiche mirate per aumentare significativamente gli FPS attraverso script personalizzati e configurazioni avanzate. Riduzione dell'input lag per garantire una risposta più immediata ai comandi in gioco, migliorando l'esperienza soprattutto nei titoli più competitivi. Configurazione precisa di mouse, tastiera e gamepad per ottenere il massimo controllo, sensibilità ottimizzata e maggiore comfort durante le sessioni prolungate. Miglioramento della stabilità della rete tramite tweak specifici per ridurre ping e jitter. Il servizio include inoltre un mese di supporto completo per assistenza, aggiornamenti e eventuali regolazioni aggiuntive in base alle esigenze.</li>
+            </ul>
+            <div class="product-divider"></div>
+            <div class="price">€30</div>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
           </div>
 
-          <!-- TERZO PRODOTTO - 30€ -->
+          <!-- PIANO 3: ZTWEAK - €40 -->
           <div class="product">
-            <img src="zylon.jpeg" alt="Tweak Extreme">
-            <div class="product-info">
-              <h4>Tweak Extreme</h4>
-              <p class="desc">Include: script automatizzati (.bat/.reg) per pulizia registro e riduzione servizi inutili, configurazioni ottimali delle periferiche (mouse, tastiera, gamepad), riduzione latenza di Windows, miglioramento stabilità e performance della connessione, script per boost FPS e riduzione input lag, aggiornamenti driver e configurazione generale consigliata + Bios Optimization + Consulenza illimitata.</p>
-              <div class="price">€30</div>
-              <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
-            </div>
+            <h4>ZTWEAK</h4>
+            <ul class="benefits">
+              <li>Accesso completo al pacchetto Extreme, che include tutte le ottimizzazioni avanzate disponibili insieme a oltre 30 file esclusivi in formato .reg e .bat firmati Zylon Zip, progettati per spingere al massimo le prestazioni del sistema. Supporto avanzato per overclock con configurazioni mirate e utilizzo di stringhe CMD ottimizzate per migliorare ulteriormente la reattività e la velocità del sistema. Incluso lo Zylon Setup completo, con power plan personalizzato e ottimizzazioni specifiche per Fortnite, studiate per ottenere il massimo degli FPS e la minima latenza possibile. Il pacchetto comprende anche consulenza dedicata e assistenza illimitata, per accompagnarti passo dopo passo e garantire sempre le migliori prestazioni nel tempo.</li>
+            </ul>
+            <div class="product-divider"></div>
+            <div class="price">€40</div>
+            <a href="https://www.tiktok.com/@zylontweaks" target="_blank" class="buy">Acquista Ora</a>
           </div>
 
-          <!-- ADDONS -->
-          <div class="addons-list">
-            <!-- PRIMO ADDON -->
-            <div class="addon-product">
-              <h4>Salta la coda</h4>
-              <p>Priorità immediata nella gestione del tuo ordine</p>
-              <div class="price">+5€</div>
-            </div>
-            <!-- SECONDO ADDON -->
-            <div class="addon-product">
-              <h4>Reset completo di Windows</h4>
-              <p>Installazione pulita e ottimizzata del sistema operativo</p>
-              <div class="price">+5€</div>
+          <!-- PACK EXTRA BARRA -->
+          <div class="product addon-product-special" style="grid-column: 1 / -1;">
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;gap:16px;">
+              <div style="flex:1;text-align:center;width:100%;">
+                <h4 style="margin:0 0 6px 0;font-size:20px;color:var(--accent);">PACK EXTRA</h4>
+                <p style="margin:0;font-size:11px;color:var(--muted);line-height:1.5;">Clean Start: Reset Windows & Driver | Deep Setup: Ottimizzazione BIOS | Aim Tweak: Config puntamento mirata | Bonus: Sconto sul prossimo tweak</p>
+              </div>
+              <div style="display:flex;align-items:center;justify-content:center;gap:0;flex-shrink:0;">
+                <div class="price" style="margin:0;font-size:28px;font-weight:900;color:var(--accent);">+10€</div>
+              </div>
             </div>
           </div>
         </div>
@@ -1198,7 +1291,7 @@ Le prestazioni non sono solo FPS più alti, ma reattività migliore, ritardi inf
                 <p class="person-role">Website Creator</p>
               </div>
               <div class="social-links">
-                <a href="https://discord.gg/adixfnbr" target="_blank" class="social-card">
+                <a href="https://discord.gg/ptmRYYSK3t" target="_blank" class="social-card">
                   <div class="social-icon-wrapper discord-icon">
                     <img src="discord.png" alt="Discord">
                   </div>
@@ -1226,7 +1319,6 @@ Le prestazioni non sono solo FPS più alti, ma reattività migliore, ritardi inf
 
     </div>
   </main>
-  <footer>© Zylon Tweak</footer>
 </div>
 
 <script>
